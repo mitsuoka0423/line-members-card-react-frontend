@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Page } from './components/page';
-import { Card } from './components/card';
 // TODO: カッコよくhooksにしたい
 // import { useProfile } from './hooks';
 import liff from '@line/liff';
 import { LiffMockPlugin } from '@line/liff-mock';
-import { useMember } from './hooks';
+import { useCard, UseCardResult } from './components/card/hooks';
 
 const isMockMode = import.meta.env.VITE_LIFF_MOCK_MODE === 'true';
 const liffId = import.meta.env.VITE_LIFF_ID;
@@ -20,44 +19,36 @@ function App() {
   const [error, setError] = useState('');
   // TODO: any を駆逐する
   // Profile は /node_modules/@liff/get-profile/lib/index.d.ts にあるけど、exportされてない？
-  const [profile, setProfile] = useState<any>();
-  const [barcodeId, setBarcodeId] = useState('');
+  const [renderCard, setRenderCard] = useState<UseCardResult>();
 
   // TODO: hooksにしたい
-  // 少なくともasync/awaitで書きたい
   useEffect(() => {
     liff
       .init({
         liffId,
         mock: isMockMode,
       })
-      .then(() => {
+      .then(async () => {
         if (!liff.isLoggedIn()) {
           liff.login({ redirectUri });
         }
 
-        liff.getProfile().then(async (profile) => {
-          console.log({ profile });
-          setProfile(profile);
-
-          if (isMockMode) {
-            return setBarcodeId(profile.userId);
-          }
-
-          const member = await useMember(profile.userId);
-          return setBarcodeId(member.barcode_id);
+        const profile = await liff.getProfile().catch((e: Error) => {
+          setError(`${e}`);
+          throw e;
         });
-      })
-      .catch((e: Error) => {
-        setError(`${e}`);
+
+        const renderCard = await useCard(profile.userId);
+        setRenderCard(renderCard);
+        console.log(renderCard);
       });
   }, []);
 
   return (
     <div className="App">
-      {profile?.userId ? (
+      {renderCard ? (
         <Page>
-          <Card barcodeId={barcodeId}></Card>
+          {renderCard()}
         </Page>
       ) : (
         '読込中'
