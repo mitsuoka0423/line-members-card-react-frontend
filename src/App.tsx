@@ -17,47 +17,37 @@ if (isMockMode) {
 }
 
 function App() {
-  const [error, setError] = useState('');
-  // TODO: any を駆逐する
-  // Profile は /node_modules/@liff/get-profile/lib/index.d.ts にあるけど、exportされてない？
-  const [profile, setProfile] = useState<any>();
   const [barcodeId, setBarcodeId] = useState('');
 
   // TODO: hooksにしたい
-  // 少なくともasync/awaitで書きたい
   useEffect(() => {
-    liff
-      .init({
+    (async () => {
+      await liff.init({
         liffId,
         mock: isMockMode,
-      })
-      .then(() => {
-        if (!liff.isLoggedIn()) {
-          liff.login({ redirectUri });
-        }
-
-        liff.getProfile().then(async (profile) => {
-          console.log({ profile });
-          setProfile(profile);
-
-          if (isMockMode) {
-            return setBarcodeId(profile.userId);
-          }
-
-          const member = await useMember(profile.userId);
-          return setBarcodeId(member.barcode_id);
-        });
-      })
-      .catch((e: Error) => {
-        setError(`${e}`);
       });
+
+      if (!liff.isLoggedIn()) {
+        liff.login({ redirectUri });
+      }
+
+      const profile = await liff.getProfile();
+
+      // モックモードのときはAPIを叩かない
+      if (isMockMode) {
+        return setBarcodeId(profile.userId);
+      }
+
+      const member = await useMember(profile.userId);
+      return setBarcodeId(member.barcode_id);
+    })();
   }, []);
 
   return (
     <div className="App">
-      {profile?.userId ? (
+      {barcodeId ? (
         <Page>
-          <Card barcodeId={barcodeId}></Card>
+          <Card value={barcodeId} type="qrcode"></Card>
         </Page>
       ) : (
         '読込中'
