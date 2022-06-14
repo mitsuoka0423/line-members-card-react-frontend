@@ -1,12 +1,22 @@
-import { Box } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { Card } from '../card';
+// TODO: カッコよくhooksにしたい
+// import { useProfile } from './hooks';
+import { useBarcode } from './hooks';
 
-interface PagePropsInterface {
-  children: ReactNode;
+function Page() {
+  const { barcodeId } = useBarcode();
+
+  return (
+    <div className="App">
+      {barcodeId ? (
+        <Box>
+          <Card value={barcodeId} type="qrcode"></Card>
+        </Box>
+      ) : (
+        '読込中'
+      )}
+    </div>
+  );
 }
 
-export const Page = (props: PagePropsInterface) => {
-  return (
-    <Box padding="40px">{props.children}</Box>
-  );
-};
+export default Page;
