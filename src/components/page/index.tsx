@@ -1,9 +1,9 @@
+import { FC } from 'react';
+import { Box } from '@chakra-ui/react';
 import { Card } from '../card';
-// TODO: カッコよくhooksにしたい
-// import { useProfile } from './hooks';
 import { useBarcode } from './hooks';
 
-function Page() {
+const Page: FC = () => {
   const { barcodeId } = useBarcode();
 
   return (

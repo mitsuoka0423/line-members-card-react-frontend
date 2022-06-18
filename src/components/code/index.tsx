@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
 import { Barcode } from '../barcode';
 import { Qrcode } from '../qrcode';
 
@@ -7,10 +7,10 @@ interface CodePropsInterface {
   type: 'barcode' | 'qrcode';
 }
 
-export const Code = (props: CodePropsInterface) => {
-  return props.type === 'barcode' ? (
-    <Barcode value={props.value}></Barcode>
+export const Code: FC<CodePropsInterface> = ({value, type}) => {
+  return type === 'barcode' ? (
+    <Barcode value={value}></Barcode>
   ) : (
-    <Qrcode value={props.value}></Qrcode>
+    <Qrcode value={value}></Qrcode>
   );
 };

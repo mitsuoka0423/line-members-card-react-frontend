@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface QrcodePropsInterface {
   value: string;
 }
 
-export const Qrcode = (props: QrcodePropsInterface) => {
-  return <QRCodeSVG value={props.value} />;
+export const Qrcode: FC<QrcodePropsInterface> = ({value}) => {
+  return <QRCodeSVG value={value} />;
 };
