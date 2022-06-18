@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { Card } from '../card';
-import { useBarcode } from './hooks';
+import { useBarcode, codeType } from './hooks';
 
 const Page: FC = () => {
   const { barcodeId } = useBarcode();
@@ -9,8 +9,8 @@ const Page: FC = () => {
   return (
     <div className="App">
       {barcodeId ? (
-        <Box>
-          <Card value={barcodeId} type="qrcode"></Card>
+        <Box padding="40px">
+          <Card value={barcodeId} type={codeType}></Card>
         </Box>
       ) : (
         '読込中'

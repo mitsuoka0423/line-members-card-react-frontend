@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Member } from '../../response/member';
 
 export const isMockMode = import.meta.env.VITE_LIFF_MOCK_MODE === 'true';
+export const codeType = import.meta.env.VITE_LIFF_CODE_TYPE;
 
 const liffId = import.meta.env.VITE_LIFF_ID;
 const redirectUri = import.meta.env.VITE_LIFF_REDIRECT_URI;
