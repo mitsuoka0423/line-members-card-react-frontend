@@ -30,3 +30,9 @@ cp .env.sample .env
 ```bash
 yarn dev
 ```
+
+## ビルド
+
+```bash
+yarn build
+```
