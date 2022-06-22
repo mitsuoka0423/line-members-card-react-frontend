@@ -41,5 +41,5 @@ const getBarcodeId = async (): Promise<string> => {
     return new Promise((resolve) => resolve('1928384898'));
   }
 
-  return fetchMember(profile.userId).then((member) => member.barcode_id);
+  return fetchMember(profile.userId).then((member) => member.MemberId);
 };
