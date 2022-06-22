@@ -7,9 +7,10 @@ export const codeType = import.meta.env.VITE_LIFF_CODE_TYPE;
 
 const liffId = import.meta.env.VITE_LIFF_ID;
 const redirectUri = import.meta.env.VITE_LIFF_REDIRECT_URI;
+const apiEndpoint = import.meta.env.VITE_LIFF_API_ENDPOINT;
 
 export const fetchMember = async (memberId: string): Promise<Member> => {
-  const response = await fetch(`http://localhost:8000/api/members/${memberId}`);
+  const response = await fetch(`${apiEndpoint}/api/members/${memberId}`);
   return await response.json();
 };
 
@@ -35,9 +36,9 @@ const getBarcodeId = async (): Promise<string> => {
 
   const profile = await liff.getProfile();
 
-  // モックモードのときはAPIを叩かない
-  if (isMockMode) {
-    return new Promise((resolve) => resolve(profile.userId));
+  // APIエンドポイント未指定の場合は固定値を返す
+  if (!apiEndpoint) {
+    return new Promise((resolve) => resolve('1928384898'));
   }
 
   return fetchMember(profile.userId).then((member) => member.barcode_id);

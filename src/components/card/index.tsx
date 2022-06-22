@@ -9,7 +9,7 @@ interface CardPropsInterface {
 
 export const Card: FC<CardPropsInterface> = ({value, type}) => {
   return (
-    <AspectRatio ratio={1.618 / 1}>
+    <AspectRatio ratio={1.618 / 1} maxWidth="400px">
       <Box boxShadow="base" borderRadius="20px">
         {value ? (
           <Code type={type} value={value}></Code>
