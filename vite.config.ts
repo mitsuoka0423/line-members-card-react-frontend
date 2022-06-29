@@ -8,4 +8,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync('./localhost-key.pem'),
+  //     cert: fs.readFileSync('./localhost.pem'),
+  //   }
+  // },
 });
