@@ -9,8 +9,8 @@ const liffId = import.meta.env.VITE_LIFF_ID;
 const redirectUri = import.meta.env.VITE_LIFF_REDIRECT_URI;
 const apiEndpoint = import.meta.env.VITE_LIFF_API_ENDPOINT;
 
-export const fetchMember = async (memberId: string): Promise<Member> => {
-  const response = await fetch(`${apiEndpoint}/api/members/${memberId}`);
+export const fetchMember = async (idToken: string): Promise<Member> => {
+  const response = await fetch(`${apiEndpoint}/api/members/${idToken}`);
   return await response.json();
 };
 
@@ -34,12 +34,16 @@ const initLiff = () =>
 const getBarcodeId = async (): Promise<string> => {
   await initLiff();
 
-  const profile = await liff.getProfile();
-
   // APIエンドポイント未指定の場合は固定値を返す
   if (!apiEndpoint) {
     return new Promise((resolve) => resolve('1928384898'));
   }
 
-  return fetchMember(profile.userId).then((member) => member.MemberId);
+  const idToken = await liff.getIDToken();
+
+  if (!idToken) {
+    throw 'Can\'t get ID Token';
+  }
+
+  return fetchMember(idToken).then((member) => member.MemberId);
 };
