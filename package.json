@@ -13,6 +13,7 @@
     "@emotion/styled": "^11",
     "@liff/hooks": "^2.20.1",
     "@line/liff": "2.20.2",
+    "axios": "^0.27.2",
     "framer-motion": "^6",
     "qrcode.react": "^3.0.2",
     "react": "^17.0.2",
