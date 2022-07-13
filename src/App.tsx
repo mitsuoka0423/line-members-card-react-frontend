@@ -2,7 +2,7 @@ import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import liff from '@line/liff';
 import { LiffMockPlugin } from '@line/liff-mock';
-import Page from './components/page';
+import MembersCard from './pages/MembersCard';
 
 export const isMockMode = import.meta.env.VITE_LIFF_MOCK_MODE === 'true';
 
@@ -14,7 +14,7 @@ if (isMockMode) {
 const App = () => (
   <React.StrictMode>
     <ChakraProvider>
-      <Page />
+      <MembersCard />
     </ChakraProvider>
   </React.StrictMode>
 );

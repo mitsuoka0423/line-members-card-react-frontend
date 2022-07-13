@@ -1,6 +1,6 @@
 import liff from '@line/liff';
 import { useEffect, useState } from 'react';
-import { Member } from '../../response/member';
+import { searchMember as searchMemberApi } from '../../requests/members';
 
 export const isMockMode = import.meta.env.VITE_LIFF_MOCK_MODE === 'true';
 export const codeType = import.meta.env.VITE_LIFF_CODE_TYPE;
@@ -8,11 +8,6 @@ export const codeType = import.meta.env.VITE_LIFF_CODE_TYPE;
 const liffId = import.meta.env.VITE_LIFF_ID;
 const redirectUri = import.meta.env.VITE_LIFF_REDIRECT_URI;
 const apiEndpoint = import.meta.env.VITE_LIFF_API_ENDPOINT;
-
-export const fetchMember = async (idToken: string): Promise<Member> => {
-  const response = await fetch(`${apiEndpoint}/api/members/${idToken}`);
-  return await response.json();
-};
 
 export const useBarcode = () => {
   const [barcodeId, setBarcodeId] = useState('');
@@ -42,8 +37,10 @@ const getBarcodeId = async (): Promise<string> => {
   const idToken = await liff.getIDToken();
 
   if (!idToken) {
-    throw 'Can\'t get ID Token';
+    throw "Can't get ID Token";
   }
 
-  return fetchMember(idToken).then((member) => member.MemberId);
+  return searchMemberApi({ idToken })
+    .then((response) => response.data)
+    .then((member) => member.MemberId);
 };
