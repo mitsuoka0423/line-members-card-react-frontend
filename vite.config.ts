@@ -9,15 +9,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  root: resolve(__dirname, 'src'),
-  resolve: {
-    alias: [
-      {
-        find: /^~\/(.*)/,
-        replacement: resolve(__dirname, 'src/$1'),
-      },
-    ],
-  },
   // server: {
   //   https: {
   //     key: fs.readFileSync('./localhost-key.pem'),
