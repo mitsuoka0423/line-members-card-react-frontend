@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Barcode } from '../barcode';
-import { Qrcode } from '../qrcode';
+import { Barcode } from './barcode';
+import { Qrcode } from './qrcode';
 
 interface CodePropsInterface {
   value: string;
