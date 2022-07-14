@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// TODO
+//TODO configファイルのdefineに移そうとしたらエラーになる
 const API_HOST = import.meta.env.VITE_LIFF_API_ENDPOINT;
 
 const client = axios.create({
