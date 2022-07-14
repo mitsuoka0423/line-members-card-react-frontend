@@ -2,7 +2,7 @@ import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import liff from '@line/liff';
 import { LiffMockPlugin } from '@line/liff-mock';
-import MembersCard from './pages/MembersCard';
+import MembersCard from './pages/MemberCardPage';
 
 export const isMockMode = import.meta.env.VITE_LIFF_MOCK_MODE === 'true';
 

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { AspectRatio, Box, Skeleton } from '@chakra-ui/react';
-import { Code } from '../code';
+import { Code } from '../../../ui/code';
 
-interface CardPropsInterface {
+interface MemberCardPropsInterface {
   value: string;
   type: 'barcode' | 'qrcode';
 }
 
-export const Card: FC<CardPropsInterface> = ({value, type}) => {
+export const MemberCard: FC<MemberCardPropsInterface> = ({value, type}) => {
   return (
     <AspectRatio ratio={1.618 / 1} maxWidth="400px">
       <Box boxShadow="base" borderRadius="20px">
