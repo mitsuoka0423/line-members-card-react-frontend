@@ -41,6 +41,5 @@ const getBarcodeId = async (): Promise<string> => {
   }
 
   return searchMemberApi({ idToken })
-    .then((response) => response.data)
     .then((member) => member.MemberId);
 };
