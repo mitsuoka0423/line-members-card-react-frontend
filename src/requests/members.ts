@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { Member } from '../domains/member';
 import api from './api';
 
@@ -7,5 +6,5 @@ interface SearchMemberParams {
 }
 
 export const searchMember = (params: SearchMemberParams): Promise<Member> => {
-  return api.get<Member>(`/api/members/${params.idToken}`);
+  return api.get<Member, Member>(`/api/members/${params.idToken}`);
 };
