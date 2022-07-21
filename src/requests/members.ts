@@ -6,6 +6,6 @@ interface SearchMemberParams {
   idToken: string;
 }
 
-export const searchMember = (params: SearchMemberParams): Promise<AxiosResponse<Member>> => {
+export const searchMember = (params: SearchMemberParams): Promise<Member> => {
   return api.get<Member>(`/api/members/${params.idToken}`);
 };
